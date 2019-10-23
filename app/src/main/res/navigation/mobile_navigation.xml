@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation"
+    app:startDestination="@+id/nav_ev">
+
+    <fragment
+        android:id="@+id/nav_ev"
+        android:name="com.example.dictionary.ui.EVFragment"
+        android:label="@string/menu_ev"
+        tools:layout="@layout/fragment_favor" />
+
+    <fragment
+        android:id="@+id/nav_ve"
+        android:name="com.example.dictionary.ui.VEFragment"
+        android:label="@string/menu_ve"
+        tools:layout="@layout/fragment_ve" />
+
+    <fragment
+        android:id="@+id/nav_favor"
+        android:name="com.example.dictionary.ui.FavorFragment"
+        android:label="@string/menu_favor"
+        tools:layout="@layout/fragment_favor_ev" />
+
+    <fragment
+        android:id="@+id/nav_yword"
+        android:name="com.example.dictionary.ui.YWordFragment"
+        android:label="@string/menu_yword"
+        tools:layout="@layout/fragment_yword" />
+
+    <fragment
+        android:id="@+id/nav_share"
+        android:name="com.example.dictionary.ui.ShareFragment"
+        android:label="@string/menu_share"
+        tools:layout="@layout/fragment_share" />
+
+    <fragment
+        android:id="@+id/nav_help"
+        android:name="com.example.dictionary.ui.HelpFragment"
+        android:label="@string/menu_help"
+        tools:layout="@layout/fragment_help" />
+</navigation>

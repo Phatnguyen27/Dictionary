@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_ev"
+            android:icon="@drawable/english"
+            android:title="@string/menu_ev" />
+        <item
+            android:id="@+id/nav_ve"
+            android:icon="@drawable/vietnamese"
+            android:title="@string/menu_ve" />
+        <item
+            android:id="@+id/nav_favor"
+            android:icon="@drawable/ic_menu_favor"
+            android:title="@string/menu_favor" />
+        <item
+            android:id="@+id/nav_yword"
+            android:icon="@drawable/ic_menu_yword"
+            android:title="@string/menu_yword" />
+    </group>
+
+    <item android:title="Communicate">
+        <menu>
+            <item
+                android:id="@+id/nav_share"
+                android:icon="@drawable/ic_menu_share"
+                android:title="@string/menu_share" />
+            <item
+                android:id="@+id/nav_help"
+                android:icon="@drawable/ic_menu_help"
+                android:title="@string/menu_help" />
+        </menu>
+    </item>
+
+</menu>
