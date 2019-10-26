@@ -11,8 +11,8 @@
     <string name="menu_ve">Vietnamese-English</string>
     <string name="menu_favor">Favorites</string>
     <string name="menu_yword">Your Words</string>
-    <string name="menu_share">Share</string>
-    <string name="menu_help">Help</string>
+    <string name="menu_flashcard">Flashcard</string>
+    <string name="menu_pronunciation">Pronunciation</string>
     <string name="hint">Search</string>
 
     <!-- TODO: Remove or change this placeholder text -->

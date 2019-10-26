@@ -29,7 +29,7 @@ public class MainActivity extends AppCompatActivity {
         navigationView = findViewById(R.id.nav_view);
         mAppBarConfiguration = new AppBarConfiguration.Builder(
                 R.id.nav_ev, R.id.nav_ve, R.id.nav_favor,
-                R.id.nav_yword, R.id.nav_share, R.id.nav_help)
+                R.id.nav_yword, R.id.nav_pronunciation, R.id.nav_flashcard)
                 .setDrawerLayout(drawer)
                 .build();
         NavController navController = Navigation.findNavController(this, R.id.fragment_container);

@@ -7,6 +7,7 @@ import android.util.Base64;
 import android.view.View;
 import android.view.WindowManager;
 import android.webkit.WebView;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -19,8 +20,10 @@ import java.util.Locale;
 
 public class WordActivity extends AppCompatActivity {
     FloatingActionButton read_fab;
+    ImageButton addFavor_Button;
     TextToSpeech textToSpeech;
     Toolbar toolbar;
+    private MyWord myWord;
     private static final String STYLE ="<style>\n" +
             "            .title {\n" +
             "                color: green;\n" +
@@ -46,9 +49,20 @@ public class WordActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         getSupportActionBar().setHomeButtonEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
+        addFavor_Button = findViewById(R.id.favor_btn);
         Intent intent = getIntent();
-        final MyWord myWord = (MyWord) intent.getSerializableExtra("word");
+        this.myWord = (MyWord) intent.getSerializableExtra("word");
+        final int number = intent.getIntExtra("favourite",0);
+        addFavor_Button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(number == 0) {
+                    addToFavouriteList();
+                } else {
+                    removeFromFavouriteList();
+                }
+            }
+        });
         ((TextView) findViewById(R.id.title)).setText(myWord.getWord());
         ((WebView) findViewById(R.id.content)).loadData(myWord.getContent()+STYLE,
                 "text/html", "UTF-8");
@@ -76,6 +90,16 @@ public class WordActivity extends AppCompatActivity {
         }
         super.onPause();
     }
+
+    public void removeFromFavouriteList() {
+        addFavor_Button.setImageResource(R.drawable.ic_favor);
+    }
+
+    public void addToFavouriteList() {
+        DatabaseAccess.instance.addToFavoriteDict(Integer.parseInt(this.myWord.getId()));
+        addFavor_Button.setImageResource(R.drawable.ic_favor_clicked);
+    }
+
 //
 //    @Override
 //    public boolean onNavigateUp() {

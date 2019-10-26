@@ -17,8 +17,8 @@ public class Fav_PageAdapter extends FragmentStatePagerAdapter  {
     @Override
     public Fragment getItem(int position) {
         switch (position) {
-            case 0: return FavorEVFragment.newInstance(0,"English - Vietnamese");
-            case 1: return FavorVEFragment.newInstance(0,"Vietnamese - English");
+            case 0: return new FavorEVFragment();
+            case 1: return new FavorVEFragment();
         }
         return null;
     }

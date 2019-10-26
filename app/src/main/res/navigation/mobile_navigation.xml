@@ -30,14 +30,14 @@
         tools:layout="@layout/fragment_yword" />
 
     <fragment
-        android:id="@+id/nav_share"
-        android:name="com.example.dictionary.ui.ShareFragment"
-        android:label="@string/menu_share"
-        tools:layout="@layout/fragment_share" />
+        android:id="@+id/nav_pronunciation"
+        android:name="com.example.dictionary.ui.PronunciationFragment"
+        android:label="@string/menu_pronunciation"
+        tools:layout="@layout/fragment_pronunciation" />
 
     <fragment
-        android:id="@+id/nav_help"
-        android:name="com.example.dictionary.ui.HelpFragment"
-        android:label="@string/menu_help"
-        tools:layout="@layout/fragment_help" />
+        android:id="@+id/nav_flashcard"
+        android:name="com.example.dictionary.ui.FlashcardFragment"
+        android:label="@string/menu_flashcard"
+        tools:layout="@layout/fragment_flashcard" />
 </navigation>

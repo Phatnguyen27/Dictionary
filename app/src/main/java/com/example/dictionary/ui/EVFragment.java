@@ -129,7 +129,7 @@ public class EVFragment extends Fragment {
             }
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                new WordSearcher().execute();
+                new EVFragment.WordSearcher().execute();
             }
             @Override
             public void afterTextChanged(Editable s) {

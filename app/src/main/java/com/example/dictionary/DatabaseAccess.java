@@ -7,6 +7,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 public class DatabaseAccess {
     private SQLiteOpenHelper openHelper;
@@ -17,7 +18,7 @@ public class DatabaseAccess {
     public final static String personalDB = "Personal";
 
     private static String DB_TABLE;
-    private static DatabaseAccess instance;
+    public static DatabaseAccess instance;
 
     private DatabaseAccess(Context context, String DB_NAME) {
         this.openHelper = new DatabaseOpenHelper(context, DB_NAME);
@@ -30,6 +31,28 @@ public class DatabaseAccess {
             instance = new DatabaseAccess(context, DB_NAME);
         }
         return instance;
+    }
+
+    public static ArrayList<MyWord> getRandomList(Context context) {
+        DatabaseAccess tempInstance = new DatabaseAccess(context,"anh_viet.db");
+        tempInstance.open();
+        Random random = new Random();
+        ArrayList<Integer> nums = new ArrayList<Integer>();
+        ArrayList<MyWord> result = new ArrayList<MyWord>();
+        for(int i = 0;i<10;i++) {
+            nums.add(random.nextInt(35001));
+        }
+        for (int i: nums) {
+            Cursor cursor = tempInstance.database.rawQuery("Select * from "+ DB_TABLE +"  where id = " + i, null);
+            cursor.moveToFirst();
+            while (!cursor.isAfterLast()) {
+                result.add(new MyWord(String.valueOf(cursor.getInt(0)),
+                        cursor.getString(1), cursor.getString(2)));
+                cursor.moveToNext();
+            }
+            cursor.close();
+        }
+        return result;
     }
 
     public void open() {
@@ -135,11 +158,11 @@ public class DatabaseAccess {
         }
     }
 
-    public ArrayList<MyWord> getAllFavouriteWord() {
+    public ArrayList<MyWord> getFavouriteWord(int position,int offset) {
         open();
         ArrayList<MyWord> result = new ArrayList<>();
         Cursor cursor = database.rawQuery("select * from " + DB_TABLE + " a inner join "
-                + favouriteDB + " b on a.id=b.id", null);
+                + favouriteDB + " b on a.id=b.id where b.id > "+ position + " limit " + offset, null);
         cursor.moveToFirst();
         while (!cursor.isAfterLast()) {
             result.add(new MyWord(String.valueOf(cursor.getInt(0)),
