@@ -35,8 +35,10 @@ public class FlashcardPageAdapter extends PagerAdapter {
         LayoutInflater inflayter = LayoutInflater.from(mContext);
         View layout = inflayter.inflate(mLayout,container,false);
         TextView tvWord = layout.findViewById(R.id.Word);
+        TextView tvSub = layout.findViewById(R.id.Word_Sub);
         MyWord word = mList.get(position);
         tvWord.setText(word.getWord());
+        tvSub.setText("Meaning");
         container.addView(layout);
         return layout;
     }

@@ -173,4 +173,20 @@ public class DatabaseAccess {
         close();
         return result;
     }
+    public MyWord getWordByName(String word) {
+        try {
+            open();
+            Cursor cursor = database.rawQuery("select * from " + DB_TABLE
+                    + " where word = " + "\"" + word.trim() + "\"", null);
+            cursor.moveToFirst();
+            MyWord word1 = new MyWord(String.valueOf(cursor.getInt(0)),
+                    cursor.getString(1), cursor.getString(2));
+            cursor.close();
+            close();
+            return word1;
+        } catch (Exception err) {
+            err.printStackTrace();
+            return null;
+        }
+    }
 }

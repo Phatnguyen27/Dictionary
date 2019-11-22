@@ -1,13 +1,16 @@
 package com.example.dictionary.ui;
 
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
+import android.widget.AdapterView;
 import android.widget.AutoCompleteTextView;
 
 import androidx.annotation.NonNull;
@@ -21,6 +24,7 @@ import com.example.dictionary.MyListAdapter;
 import com.example.dictionary.MyWord;
 import com.example.dictionary.R;
 import com.example.dictionary.SearchAdapter;
+import com.example.dictionary.WordActivity;
 
 import java.util.ArrayList;
 
@@ -46,6 +50,7 @@ public class EVFragment extends Fragment {
         currentIndex = 260;
         offset = 10;
         dbAccess = DatabaseAccess.getInstance(getActivity(), DatabaseOpenHelper.DB_NAME_EV);
+        dbAccess.open();
         addControl();
         addEvent();
 //        if (listOfWord.isEmpty()) {
@@ -87,6 +92,16 @@ public class EVFragment extends Fragment {
 
     private void addEvent() {
         fetchMoreData();
+        mAcTvSearch.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                Log.d("position",String.valueOf(i));
+                MyWord word = dbAccess.getWordByName(searchList.get(i));
+                Intent intent = new Intent(getActivity(), WordActivity.class);
+                intent.putExtra("word",word);
+                startActivity(intent);
+            }
+        });
     }
 
     private void addControl() {
@@ -125,11 +140,13 @@ public class EVFragment extends Fragment {
         mAcTvSearch.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-                searchList.clear();
+                //searchList.clear();
+                Log.d("beforeTextChange",String.valueOf(searchList.size()));
             }
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 new EVFragment.WordSearcher().execute();
+                Log.d("onTextChange",String.valueOf(searchList.size()));
             }
             @Override
             public void afterTextChanged(Editable s) {
@@ -162,21 +179,26 @@ public class EVFragment extends Fragment {
     }
 
     public void fetchMoreData() {
-        dbAccess.open();
         ArrayList<MyWord> temp = dbAccess.getWordsOffset(totalItems + 261, offset);
         for (int i = 0; i < temp.size(); i++) {
             listOfWord.add(new MyWord(temp.get(i)));
         }
-        dbAccess.close();
     }
 
     public void searchString() {
         String str = mAcTvSearch.getText().toString();
-        dbAccess.open();
-        ArrayList<String> temp = dbAccess.getWordsStartWith(str);
-        for (int i = 0; i < temp.size(); i++) {
-            searchList.add(temp.get(i));
+        if(str.equals("")) {
+            searchList.clear();
+        } else {
+            ArrayList<String> temp = dbAccess.getWordsStartWith(str);
+            for (int i = 0; i < temp.size(); i++) {
+                searchList.add(temp.get(i));
+            }
         }
+    }
+    @Override
+    public void onStop() {
+        super.onStop();
         dbAccess.close();
     }
 }
